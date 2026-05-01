@@ -11,7 +11,7 @@ export default function ClubsPage() {
       <PageHeader
         eyebrow="Clubes"
         title="Clubes participantes"
-        description="Explore os clubes das ligas do Brasil, Itália e Turquia com acesso direto ao perfil completo."
+        description="Explore os clubes reais da Superliga A Feminina (CBV) com acesso direto ao perfil completo."
       />
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">

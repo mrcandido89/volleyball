@@ -22,11 +22,11 @@ export default function HomePage() {
 
   const featuredClubIds = [
     "club-praia-clube",
-    "club-conegliano",
-    "club-vakifbank",
     "club-minas",
-    "club-milano",
-    "club-eczacibasi",
+    "club-osasco",
+    "club-sesc-flamengo",
+    "club-fluminense",
+    "club-barueri",
   ];
   const featuredPlayerIds = [
     "player-ana-cristina",
@@ -60,7 +60,7 @@ export default function HomePage() {
         </h1>
         <p className="mt-4 max-w-2xl text-sm text-slate-300 md:text-base">
           Acompanhe classificações, elencos e desempenho das atletas em uma experiência esportiva
-          moderna, com foco total em clubes das ligas do Brasil, Itália e Turquia.
+          moderna, com foco total em dados reais da Superliga A Feminina do Brasil.
         </p>
         <div className="mt-6 flex flex-wrap gap-3">
           <Link
@@ -81,7 +81,7 @@ export default function HomePage() {
       <section className="space-y-5">
         <PageHeader
           title="Ligas principais"
-          description="As três competições iniciais disponíveis na plataforma."
+          description="Competição disponível com dados reais no momento."
         />
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
           {leagues.map((league) => {

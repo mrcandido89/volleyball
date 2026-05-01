@@ -69,6 +69,9 @@ export default async function LeaguePage({ params }: LeaguePageProps) {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {clubs.map((club) => {
             const row = standings.find((item) => item.clubId === club.id);
+            if (league.id === "league-superliga-br" && !row) {
+              return null;
+            }
             return (
               <ClubCard
                 key={club.id}
