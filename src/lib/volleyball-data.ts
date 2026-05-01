@@ -5,21 +5,19 @@ import {
   getCbvSuperligaLeague,
   getCbvSuperligaStandings,
 } from "@/lib/cbv-superliga";
-import { clubs } from "@/data/clubs";
-import { clubSeasonStats } from "@/data/clubStats";
 import { leagues } from "@/data/leagues";
-import { matches } from "@/data/matches";
-import { playerCareerEntries } from "@/data/playerCareer";
-import { playerMatchStats, playerSeasonStats } from "@/data/playerStats";
-import { players } from "@/data/players";
 import { standings } from "@/data/standings";
-import type { Club } from "@/types/volleyball";
+import type {
+  Club,
+  ClubSeasonStats,
+  PlayerCareerEntry,
+  PlayerMatchStat,
+  PlayerSeasonStats,
+} from "@/types/volleyball";
 
 const fallbackBrazilLeague = leagues.find((league) => league.id === "league-superliga-br");
-const fallbackBrazilClubs = clubs.filter((club) => club.leagueId === "league-superliga-br");
-const fallbackBrazilStandings = standings
-  .filter((row) => row.leagueId === "league-superliga-br")
-  .sort((a, b) => a.position - b.position);
+const fallbackBrazilClubs: Club[] = [];
+const fallbackBrazilStandings = standings.filter((row) => row.leagueId === "league-superliga-br");
 
 const cbvLeague = await getCbvSuperligaLeague();
 const cbvClubs = await getCbvSuperligaClubs();
@@ -34,11 +32,8 @@ const standingsData = resolvedBrazilStandings;
 const clubsData = resolvedBrazilClubs;
 
 const clubById = new Map<string, Club>(clubsData.map((club) => [club.id, club]));
-const clubIdSet = new Set(clubsData.map((club) => club.id));
-const playersData = players.filter((player) => clubIdSet.has(player.currentClubId));
-const matchesData = matches.filter(
-  (match) => clubIdSet.has(match.homeClubId) && clubIdSet.has(match.awayClubId),
-);
+const playersData: typeof import("@/data/players").players = [];
+const matchesData: typeof import("@/data/matches").matches = [];
 
 export const getLeagues = () => leaguesData;
 
@@ -91,20 +86,30 @@ export const getRecentMatches = (limit = 8) =>
     .sort((a, b) => Number(new Date(b.date)) - Number(new Date(a.date)))
     .slice(0, limit);
 
-export const getClubStats = (clubId: string) =>
-  clubSeasonStats.find((stats) => stats.clubId === clubId);
+export const getClubStats = (clubId: string): ClubSeasonStats | undefined => {
+  void clubId;
+  return undefined;
+};
 
-export const getPlayerStats = (playerId: string) =>
-  playerSeasonStats.find((stats) => stats.playerId === playerId);
+export const getPlayerStats = (playerId: string): PlayerSeasonStats | undefined => {
+  void playerId;
+  return undefined;
+};
 
-export const getPlayerSeasonStats = (playerId: string) =>
-  playerSeasonStats.filter((stats) => stats.playerId === playerId);
+export const getPlayerSeasonStats = (playerId: string): PlayerSeasonStats[] => {
+  void playerId;
+  return [];
+};
 
-export const getPlayerCareer = (playerId: string) =>
-  playerCareerEntries.filter((entry) => entry.playerId === playerId);
+export const getPlayerCareer = (playerId: string): PlayerCareerEntry[] => {
+  void playerId;
+  return [];
+};
 
-export const getPlayerRecentMatchStats = (playerId: string) =>
-  playerMatchStats.filter((entry) => entry.playerId === playerId);
+export const getPlayerRecentMatchStats = (playerId: string): PlayerMatchStat[] => {
+  void playerId;
+  return [];
+};
 
 export const getCurrentStandingByClubId = (clubId: string) =>
   standingsData.find((standing) => standing.clubId === clubId);

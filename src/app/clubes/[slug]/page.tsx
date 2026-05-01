@@ -15,7 +15,6 @@ import {
   getPlayerStats,
   getPlayersByClubId,
 } from "@/lib/volleyball-data";
-import { formatPercentage } from "@/lib/utils";
 
 type ClubPageProps = {
   params: Promise<{ slug: string }>;
@@ -67,9 +66,7 @@ export default async function ClubPage({ params }: ClubPageProps) {
         </Card>
         <Card>
           <p className="text-xs text-slate-400">Aproveitamento</p>
-          <p className="mt-1 font-semibold text-slate-100">
-            {stats ? formatPercentage((stats.wins / stats.matches) * 100) : "N/A"}
-          </p>
+          <p className="mt-1 font-semibold text-slate-100">N/A</p>
         </Card>
       </section>
 
@@ -82,7 +79,13 @@ export default async function ClubPage({ params }: ClubPageProps) {
 
       <section className="space-y-4">
         <h2 className="text-xl font-semibold text-slate-100">Elenco atual</h2>
-        <RosterTable players={roster} statsByPlayerId={statsByPlayerId} />
+        {roster.length ? (
+          <RosterTable players={roster} statsByPlayerId={statsByPlayerId} />
+        ) : (
+          <Card className="text-sm text-slate-400">
+            Elenco real ainda não integrado via scraping da CBV para este clube.
+          </Card>
+        )}
       </section>
     </div>
   );
