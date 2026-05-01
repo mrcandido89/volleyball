@@ -62,3 +62,20 @@ Toda leitura passa por funções em `src/lib/volleyball-data.ts`, como:
 4. Se desejar, adicione cache/revalidação com Next (`revalidate`, `fetch cache`) sem alterar os componentes de UI.
 
 Essa abordagem já prepara a arquitetura para escalar sem reescrever as páginas.
+
+## Integração API (incremental)
+
+Atualmente `ligas` e `classificação` já podem vir de API, com fallback automático para os mocks locais.
+
+Variáveis suportadas:
+
+- `VOLLEY_API_BASE_URL` (ex.: `https://api.seudominio.com`)
+- `VOLLEY_API_TIMEOUT_MS` (opcional, padrão `3500`)
+- `VOLLEY_API_LEAGUES_ENDPOINT` (opcional, padrão `/leagues`)
+- `VOLLEY_API_STANDINGS_ENDPOINT` (opcional, padrão `/standings`)
+
+Exemplo:
+
+```bash
+VOLLEY_API_BASE_URL=https://api.seudominio.com npm run dev
+```
