@@ -79,3 +79,46 @@ Exemplo:
 ```bash
 VOLLEY_API_BASE_URL=https://api.seudominio.com npm run dev
 ```
+
+## Scraping + ingestão PostgreSQL (CBV Superliga Feminina)
+
+O projeto inclui um scraper com **Puppeteer** para a página oficial da CBV e ingestão em banco PostgreSQL:
+
+- URL alvo: `https://cbv.com.br/volei-de-quadra/superliga-a-feminina`
+- Script: `scripts/ingest-cbv-superliga.mjs`
+- Comando: `npm run ingest:cbv:superliga`
+
+### Dados coletados
+
+- Metadados da competição (título da página e headings principais)
+- Classificação (posição, clube, pontos, jogos, vitórias, derrotas, métricas MS/MP)
+- Clubes listados (com `cbv_club_id`, slug e link da página do clube)
+- Notícias em destaque (título e URL)
+- Vídeos em destaque (YouTube e VBTV)
+- Snapshot bruto em JSON para auditoria
+
+### Configuração de ambiente
+
+Variáveis suportadas pelo script:
+
+- `DATABASE_URL` (obrigatória) — conexão PostgreSQL
+- `CBV_SUPERLIGA_URL` (opcional) — padrão da Superliga Feminina
+- `PUPPETEER_HEADLESS` (opcional, use `false` para visualizar o browser) — padrão headless
+- `CBV_PUPPETEER_TIMEOUT_MS` (opcional) — padrão `120000`
+
+Exemplo de execução:
+
+```bash
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/volley \
+npm run ingest:cbv:superliga
+```
+
+O script cria/atualiza automaticamente as tabelas:
+
+- `cbv_competitions`
+- `cbv_clubs`
+- `cbv_standings_snapshots`
+- `cbv_standing_rows`
+- `cbv_news_items`
+- `cbv_video_items`
+- `cbv_superliga_raw_snapshots`
