@@ -12,7 +12,7 @@ export default function LeaguesPage() {
       <PageHeader
         eyebrow="Competições"
         title="Ligas femininas de clubes"
-        description="Acompanhe classificação, resultados e estatísticas das principais ligas nacionais."
+        description="Acompanhe classificação, resultados e estatísticas em dados reais da Superliga A Feminina."
       />
       <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
         {leagues.map((league) => (
